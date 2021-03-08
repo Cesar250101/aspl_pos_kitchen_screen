@@ -15,7 +15,6 @@ from odoo import fields, models, api, SUPERUSER_ID, _
 class res_users(models.Model):
     _inherit = 'res.users'
 
-    codigo_garzon = fields.Char(string='Código Usuario')
     kitchen_screen_user = fields.Selection([('cook','Cook'),('manager','Manager')],string="Kitchen Screen User")
     pos_category_ids = fields.Many2many('pos.category', string="POS Categories")
     default_pos = fields.Many2one('pos.config',string="POS Config")

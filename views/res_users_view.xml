@@ -18,7 +18,6 @@
                            attrs="{'invisible': ['|',('kitchen_screen_user', '=', 'cook')]}" 
                            widget="many2many_tags"
                            domain="[('kitchen_screen_user','=','cook')]"/>
-                    <!--<field name = "codigo_garzon"/>-->
                 </field>
             </field>
         </record>
