@@ -19,7 +19,7 @@ class res_users(models.Model):
     pos_category_ids = fields.Many2many('pos.category', string="POS Categories")
     default_pos = fields.Many2one('pos.config',string="POS Config")
     cook_user_ids = fields.Many2many('res.users','cook_user_rel','user_id','cook_user_id', string='Cook Users')
-    user_code = fields.Char(string='Código Usuario')
+    codigo_garzon = fields.Char(string='Código Usuario')
     
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
