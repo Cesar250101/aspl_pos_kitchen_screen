@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<templates id="template" xml:space="preserve">
+
+    <t t-name="kitchenScreenButton">
+        <span class="control-button">
+            <i class="fa fa-desktop"></i>
+            Kitchen Screen
+        </span>
+    </t>
+
+    <t t-name="SendOrderToKitchenButton">
+        <span class="control-button">
+            <i class="fa fa-bell"></i>
+            Send to kitchen
+        </span>
+    </t>
+
+     <t t-name="OrderLineNotePopupWidget">
+            <div class="modal-dialog">
+                <div class="popup popup-textinput">
+                    <p class="title">Add Note</p>
+                    <textarea id="textarea_note" rows="4" cols="30">
+                    </textarea>
+                    <div class="footer">
+                        <div class="button confirm">
+                            Done
+                        </div>
+                        <div class="button cancel">
+                            Cancel
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </t>
+
+        <t t-extend="Orderline">
+            <t t-jquery="ul.info-list li:first" t-operation="append">
+                <li class="info">
+                   <b style="color:green;text-transform:capitalize;">State: <t t-esc="line.state"/></b>
+                </li>
+            </t>
+        </t>
+
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery="div.paymentmethods-container" t-operation="before">
+            <div style="text-align: center;margin-top: 15px;">
+                <span>
+                    <textarea id="order_note" placeholder="Order Notes Here"></textarea>
+                </span>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="PosTicket">
+        <t t-jquery="div.pos-sale-ticket" t-operation="append">
+            <t t-if="order.get_order_note()">
+                <br />
+                <div style='text-align:left'>
+                    <span>Note:</span><span><pre><t t-esc="order.get_order_note()" /></pre></span>
+                </div>
+            </t>
+        </t>
+        <t t-jquery="[t-esc='orderline.get_product().display_name']" t-operation="after">
+            <t t-if="orderline.get_note()">
+                <div class="pos-disc-font">
+                    <t t-esc="orderline.get_note()"/>
+                </div>
+            </t>
+        </t> 
+    </t>
+
+	<t t-extend="XmlReceipt">
+		<t t-jquery="receipt" t-operation="append">
+		    <t t-if="receipt.order_note">
+	            <div font='b'>
+                    Note: <t t-esc='receipt.order_note' />
+                </div>
+            </t>
+		</t>
+		<t t-jquery="[t-if='simple']" t-operation="append">
+			<t t-if="line.note">
+				<line indent='1'><left><t t-esc='line.note' /></left></line>
+			</t>
+		</t>
+		<t t-jquery="[t-if='!simple']" t-operation="append">
+			<t t-if="line.note">
+	             <line indent='1'>
+	                 <left>
+	                     <div font='b'>
+	                         <t t-esc='line.note' />
+	                     </div>
+	                 </left>
+	             </line>
+			</t>
+		</t>
+	</t>
+
+
+    <t t-name="kitchenScreenWidget">
+        <div class="kitchen-screen screen">
+            <div class="screen-content">
+                <section class="top-content">
+                    <div class="kitchen-buttons">
+                        <t t-if="widget.pos.user.kitchen_screen_user === 'manager'">
+                            <span class='button category selected' t-att-data-id='0' style="cursor:pointer">
+                                All
+                            </span>
+                        </t>
+                        <t t-foreach="widget.category_list" t-as="categ">
+                            <span class='button category' t-att-data-id='categ.id' style="cursor:pointer">
+                                <t t-esc="categ.name"/>
+                            </span>
+                        </t>
+                    </div>
+                    <t t-if="widget.pos.user.kitchen_screen_user === 'manager'">
+                        <span class='button back'>
+                            <i class='fa fa-angle-double-left'></i>
+                            Back
+                        </span>
+                        <span class="button btn-list"><i class="fa fa-list-ul"></i></span>
+                        <span class="button btn-kanban selected"><i class="fa fa-th-large"></i></span>
+                    </t>
+                </section>
+                <section class="full-content">
+                    <div class='window'>
+                        <section class='subwindow'>
+                            <div class='subwindow-container'>
+                                <div class='subwindow-container-fix touch-scrollable scrollable-y order-list-scroll' style="">
+                                    <div class="kitchen-orders">
+                                        <div class="order-list">
+                                            <span class="order-line header">
+                                                <div class="order-product">Name</div>
+                                                <div class="order-qty">Quantity</div>
+                                                <div class="order-table">Table</div>
+                                                <div class="order-time">Time</div>
+                                                <div class="order-state">State</div>
+                                                <div class="order-state"></div>
+                                                <div class="order-state"></div>
+                                                <div class="order-note">Note</div>
+                                                <div class="order-receipt-print" style="width: 5%;"/>
+                                            </span>
+                                            <div class='order-list-contents'>
+                                            </div>
+                                        </div>
+
+                                        <div class="order-kanban disappear">
+                                            <div  class='table-order-contents'>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </t>
+
+     <t t-name="KitchenOrderlistLine">
+         <span class='order-line kitchen-screen' t-att-data-id='order_line_data.id' t-att-data-order-id='order_line_data.order'>
+             <div class="order-product"><t t-esc='order_line_data.name' /></div>
+             <div class="order-qty"><t t-esc='order_line_data.qty' /></div>
+             <div class="order-table">
+                 <t t-esc='order_line_data.table or " "' />
+                 <t t-if="order_line_data.floor">
+                    <span>( <t t-esc="order_line_data.floor"/> )</span>
+                 </t>
+             </div>
+             <div class="order-time"><t t-esc='order_line_data.time'/></div>
+             <div class="order-state"><t t-esc='order_line_data.state' /></div>
+             <div class="state-button" t-att-data-state="order_line_data.state" t-att-data-id='order_line_data.id'
+                  t-att-data-route='order_line_data.route_id'>
+                 <button class="btn">
+                     <t t-if="order_line_data.state == 'waiting'">Confirm</t>
+                     <!-- <t t-if="order_line_data.state == 'preparing'">Complete</t>
+                     <t t-if="order_line_data.state == 'delivering'">Send</t> -->
+                 </button>
+             </div>
+             <div style="width: 7% !important;"/>
+             <!-- <div class="cancel-order" t-att-data-id='order_line_data.id'>
+                 <t t-if="order_line_data.state == 'waiting'">
+                    <button class="button">Cancel</button>
+                 </t>
+             </div> -->
+             <div class="order-note">
+                 <t t-if="order_line_data.note">
+                    <span id="view_note" t-att-data-note='order_line_data.note' style="cursor:pointer">
+                        <i class="fa fa-info-circle" aria-hidden="true"></i>
+                    </span>
+                 </t>
+            </div>
+            <div style="width: 5%;justify-content: center;cursor: pointer;font-size: 25px;" 
+                 class="line-print-receipt" 
+                 t-att-data-id='order_line_data.id'>
+                <i aria-hidden="true" class="fa fa-print"></i>
+            </div>
+        </span>
+    </t>
+
+    <t t-name="TableOrders">
+        <span class="table-order order-container" t-att-data-pos-order-id="order_data.order_id">
+            <div class="order-title">
+                <t t-esc='order_data.order_name' />
+                <div class="order-table">
+                    <t t-if="order_data.table">
+                        <span>Table: <t t-esc='order_data.table' /></span>
+                    </t>
+                </div>
+                <t t-if="!order_data.cancel_order">
+                    <div class="remove_whole_order" title="Cancel Order"
+                         t-att-data-pos-order-id="order_data.order_id">
+                         Cancel
+                    </div>
+                </t>
+            </div>
+            <div class="order-time"><t t-esc='order_data.order_time' /></div>
+            <div class="order-floor"><t t-esc='order_data.floor or " " ' /></div>
+            <div class="order-lines touch-scrollable scrollable-y">
+                <ul>
+                <t t-foreach="order_data.order_lines" t-as="line">
+                    <li class="table-order-line">
+                        <div style="float:left;width:65%">
+                            <t t-esc="line.qty"/> - <t t-esc="line.name" /><br/>
+                        </div>
+                        <!-- <b class="table-line-state">
+                            <t t-esc="line.state"/><br/>
+                        </b> -->
+                        <div class="state-button" t-att-data-state="line.state" t-att-data-id='line.id'
+                            t-att-data-route='line.route_id'
+                            t-att-data-order-id="order_data.order_id" 
+                            style="float: right;width:35%;text-align: center;cursor: pointer;background: #a3d5ae;border-radius: 3px;">
+                                <!-- <t t-if="line.state == 'waiting'">
+                                    <div>Confirm</div>
+                                    <t t-set="show_cancel_button" t-value="true"/>
+                                </t>
+                                <t t-set="avg_stage" t-value="line.state"/>
+                                <t t-if="line.state == 'preparing'"><div>Complete</div></t>
+                                <t t-if="line.state == 'delivering'"><div>Send</div></t> -->
+                                <t t-if="line.state == 'waiting'">Waiting</t>
+                                <!-- <t t-if="line.state == 'preparing'">Preparing</t> -->
+                                <t t-if="line.state == 'done'">Done</t>
+                        </div>
+                    </li>
+                    <t t-if="line.note">
+                        <div style="color:#ff0023c2"><t t-esc="line.note" /></div>
+                    </t>
+                </t>
+                </ul>
+            </div>
+            <div>
+                <t t-if="order_data.order_lines[0] and order_data.order_lines[0].state">
+                    <div style="text-align: center;margin-top: 15px;">
+                        <span>
+                            <button class="kanban_btn_stage_changes" t-att-stage="avg_stage or 'delivering'" t-att-data-order-id="order_data.order_id">
+                                <!-- <t t-if="order_data.order_lines[0].state == 'waiting'">Confirm</t>
+                                <t t-if="order_data.order_lines[0].state == 'preparing'">Complete</t>
+                                <t t-if="order_data.order_lines[0].state == 'delivering' or !order_data.order_lines[0].state">Send</t> -->
+                                <i class="fa fa-arrow-circle-o-right" style="font-size:36px;line-height: 40px;color: #959595;"></i>
+                            </button>
+                        </span>
+                    </div>
+                </t>
+            </div>
+            <t t-if="order_data.note">
+                <div class="kitchen-order-note" t-att-data-note='order_data.note'>
+                    <i class="fa fa-info-circle" aria-hidden="true" style="cursor:pointer"></i>
+                </div>
+            </t>
+            <div class="total-amount"><b style="font-size:16px;padding:10px">Total:</b><t t-esc="widget.format_currency(order_data.total)"/></div>
+            <div class="order-print-receipt" t-att-data-pos-order-id="order_data.order_id" style="width: 30px;font-size: 22px;position: absolute;bottom: 5px;left: 60px;cursor: pointer;">
+                <i aria-hidden="true" class="fa fa-print"></i>
+            </div>
+        </span>
+    </t>
+
+     <t t-name="ProductNotePopupWidget">
+        <div class="modal-dialog">
+            <div class="popup note-popup">
+                <p class="title">Note</p>
+                <div id="Order_line_note">
+                </div>
+                <div class="footer">
+                    <div class="button confirm">
+                        OK
+                    </div>
+                </div>
+            </div>
+        </div>
+     </t>
+
+    <t t-extend="OrderSelectorWidget">
+        <t t-jquery="span.neworder-button" t-operation="replace">
+            <t t-if="widget.pos.user.kitchen_screen_user != 'cook'">
+                <span class="order-button square neworder-button">
+                    <i class='fa fa-plus' />
+                </span>
+            </t>
+        </t>
+        <t t-jquery="span.deleteorder-button" t-operation="replace">
+            <t t-if="widget.pos.user.kitchen_screen_user != 'cook'">
+                <span class="order-button square deleteorder-button">
+                    <i class='fa fa-minus' />
+                </span>
+            </t>
+        </t>
+    </t>
+
+    <t t-name="KitchenLineReceipt">
+        <receipt align='center' width='40' value-thousands-separator='' >
+            <line>
+                <left>Company</left>
+                <right><t t-esc='lines[0].company_id[1]' /></right>
+            </line>
+            <line>
+                <left>Receipt Ref</left>
+                <right><t t-esc='lines[0].pos_reference' /></right>
+            </line>
+            <t t-if="lines[0].tabel_id">
+                <line>
+	                <left>Table</left>
+	                <right><t t-esc='lines[0].tabel_id[1]' /></right>
+                </line>
+            </t>
+            <t t-if="lines[0].floor_id">
+                <line>
+	                <left>Floor</left>
+	                <right><t t-esc='lines[0].floor_id' /></right>
+                </line>
+            </t>
+            <br/>
+            <t t-foreach="lines" t-as="line">
+                <line>
+	                <left><t t-esc='line.product_id[1]' /></left>
+	                <right>
+                        <t t-if='line.state'>
+                           <t t-if="line.state == 'waiting'">
+                               Waiting
+                           </t>
+                           <!-- <t t-if="line.state == 'preparing'">
+                               Preparing
+                           </t>
+                           <t t-if="line.state == 'delivering'">
+                               Waiting/Deliver
+                           </t> -->
+                           <t t-if="line.state == 'done'">
+                               Done
+                           </t>
+                           <t t-if="line.state == 'cancel'">
+                               Cancel
+                           </t>
+                        </t>
+	                </right>
+	            </line>
+	            <line indent='1'>
+	               <left>
+	                   <t t-esc='line.qty'/>
+                        <t t-if='line.uom_id'>
+                            <t t-esc='line.uom_id'/>
+                        </t>
+	               </left>
+	            </line>
+	            <t t-if="line.order_line_note">
+	                <line indent='1'><left>Note: <t t-esc='line.order_line_note' /></left></line>
+	            </t>
+            </t>
+            <div font='b'>
+                <br/>
+                <div><t t-esc="moment(new Date()).format('YYYY-MM-DD HH:mm:ss')"/></div>
+            </div>
+        </receipt>
+    </t>
+
+</templates>

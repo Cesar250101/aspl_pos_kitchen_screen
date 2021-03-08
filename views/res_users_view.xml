@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<odoo>
+    <data>
+
+        <record id="res_users_inherit_view" model="ir.ui.view">
+            <field name="name">res.users.inherit.view</field>
+            <field name="model">res.users</field>
+            <field name="inherit_id" ref="base.view_users_form"/>
+            <field name="arch" type="xml">
+                <field name="pos_security_pin" position="after">
+                    <field name = "kitchen_screen_user"/>
+                    <field name = "pos_category_ids" widget="many2many_tags" attrs="{'invisible' : [('kitchen_screen_user', '=', False)],
+                                                                                      'required' : [('kitchen_screen_user', '!=', False)]}"/>
+					<field name = "default_pos" attrs="{'invisible' : [('kitchen_screen_user', '!=', 'cook')],
+                                                                                      'required' : [('kitchen_screen_user', '==', 'cook')]}"/>
+                    <field name="cook_user_ids" 
+                           attrs="{'invisible': ['|',('kitchen_screen_user', '=', 'cook')]}" 
+                           widget="many2many_tags"
+                           domain="[('kitchen_screen_user','=','cook')]"/>
+                    <field name = "user_code"/>                           
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

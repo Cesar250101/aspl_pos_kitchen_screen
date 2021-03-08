@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- vim:fdn=3:-->
+<odoo>
+
+        <template id="index" name="aspl_pos_kitchen_screen index" inherit_id="point_of_sale.index">
+            <xpath expr="." position="inside">
+	            <script type="text/javascript" src="/aspl_pos_kitchen_screen/static/src/js/pos.js"></script>
+                <link rel="stylesheet" type="text/css" href="/aspl_pos_kitchen_screen/static/src/css/pos.css"/>
+            </xpath>
+        </template>
+
+</odoo>

@@ -1,0 +1,294 @@
+.pos .remove_whole_order {
+	float: right;
+	background: #eee;
+	color: red;
+	width: auto;
+	padding: 0px 6px;
+	border-radius: 9px;
+	border: 1px solid #f0eeee;
+	cursor: pointer;
+}
+
+.pos .kitchen-screen .order-list-scroll{
+    height:auto;
+    max-height: 82vh;
+}
+.pos .kitchen-screen .disappear {
+    display:none;
+}
+
+/*The Kitchen Order List Screen */
+.pos .kitchen-screen .header{
+    background:#7ac7879e;
+}
+.pos .kitchen-screen .order-line {
+    float: left;
+    width: 100%;
+    height: 43px;
+    margin: 0px 0px !important;
+    box-shadow: none;
+    border-top: 1px solid #96b18c;
+}
+
+.pos .kitchen-screen .order-line div {
+    float: left !important;
+    position: relative !important;
+    padding: 0 !important;
+    display: flex;
+    bottom: unset !important;
+    align-items: center;
+    height: 40px;
+    font-size: 14px;
+    font-weight: bold;
+    background: transparent;
+
+}
+
+.pos .kitchen-screen .order-line .order-product {
+    width: 24% !important;
+    justify-content: center;
+}
+
+.pos .kitchen-screen .order-line .order-qty{
+    width: 11% !important;
+    justify-content: center;
+}
+
+.pos .kitchen-screen .order-line .order-table{
+    width: 16% !important;
+    justify-content: center;
+}
+
+.pos .kitchen-screen .order-line .order-time {
+    width: 20% !important;
+    justify-content: center;
+}
+.pos .kitchen-screen .order-line .order-state {
+    width: 7% !important;
+    text-transform:capitalize;
+
+}
+
+.pos .kitchen-screen .order-line .state-button {
+    width: 6.5% !important;
+    justify-content: flex-start;
+}
+
+.pos .kitchen-screen .order-line .cancel-order{
+    width: 8% !important;
+    justify-content: flex-start;
+}
+
+.pos .kitchen-screen .order-line .order-note {
+    width: 3% !important;
+    justify-content: center;
+}
+
+.pos .kitchen-screen .order-list-contents span:nth-child(even)
+    {
+    background: rgb(247, 247, 247);
+}
+
+/*The Kitchen Order kanban Screen */
+.pos .kitchen-screen .table-order-contents .table-order {
+    position: relative;
+    vertical-align: top;
+    display: inline-block;
+    width: 239px;
+    height: 300px;
+    font-size: 14px;
+    margin: 7px !important;
+    background:white;
+
+}
+
+.pos .kitchen-screen .table-order .order-title{
+    font-size: 16px;
+	padding: 3px 4px;
+	background: #a3d5ae;
+	height: 30px;
+	line-height: 29px;
+}
+
+.pos .kitchen-screen .table-order .order-time{
+    padding: 9px;
+    float: left;
+}
+.pos .kitchen-screen .table-order .order-table{
+    float:right;
+}
+.pos .kitchen-screen .table-order .order-floor{
+    padding : 10px;
+    text-align: right;
+    height: 15px;
+}
+
+.pos .kitchen-screen .table-order .order-lines{
+    padding: 0px 4px 0 10px;
+    line-height: 20px;
+    height: 190px;
+    width: auto;
+}
+
+.pos .kitchen-screen .table-order li {
+    list-style-type: none;
+    width:auto;
+    padding-bottom: 22px;
+}
+
+.pos .kitchen-screen .table-order .table-line-state{
+    float:right;
+    width: 35%;
+    text-align: -webkit-right;
+    text-align: -moz-right  ;
+    text-transform:capitalize;
+}
+
+.pos .kitchen-screen .table-order .kitchen-order-note .note-popover{
+    display:none;
+    width: 418px;
+    height: 310px;
+    background:white;
+    z-index:1;
+
+}
+.pos .kitchen-screen .table-order .kitchen-order-note{
+    width: 25px;
+    font-size: 22px;
+    position: absolute;
+    bottom: 5px;
+    cursor: pointer;
+    left: 90px;
+}
+
+
+.pos .kitchen-screen .table-order .total-amount{
+    bottom: 9px;
+    right: 0;
+    width: 128px;
+    position: absolute;
+}
+.screen .top-content .btn-kanban {
+    right:0;
+}
+
+.screen .top-content .btn-list {
+    right:5%;
+}
+
+.screen .top-content .btn-list:hover,.screen .top-content .btn-kanban:hover {
+    color: #088000;
+    background:#7ac7879e
+
+}
+
+/*Kitchen Button for category*/
+.screen .kitchen-buttons {
+    padding: 11px
+}
+
+.screen .kitchen-buttons .button:hover {
+    color: #088000;
+}
+
+.screen .kitchen-buttons .button {
+    position: initial;
+    margin: 5px;
+}
+
+.screen .button.selected {
+    background: #088000;
+    color: #FFF;
+}
+
+#Order_line_note {
+    height: 50%;
+    background: white;
+    width: 50%;
+    margin: auto;
+    margin-top: 5%;
+    padding: 15px;
+}
+
+.kanban_btn_stage_changes{
+    position: absolute;
+    left: 3px;
+    bottom: 0px;
+    right: 0;
+    border-radius: 13px !important;
+    z-index: 1111;
+    background: #f7fcfb !important;
+    color: #fff;
+    font-size: 14px !important;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0px 1px 3px #000000;
+    cursor: pointer;
+}
+.order-container.show_loading::after {
+    content: "Loading...";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 9999;
+    top: 0;
+    display: inline-flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: larger;
+    cursor: not-allowed;
+}
+
+.pos *::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+.pos *::moz-scrollbar {
+    width: 4px;
+    height: 4px;
+}
+
+.pos *::-webkit-scrollbar-thumb {
+    background: rgb(168,168,168);
+    background: #393939;
+    min-height: 30px;
+}
+
+@media only screen and (max-width: 768px){
+
+    .pos .kitchen-screen .order-list-scroll{
+        height:auto;
+        max-height: 898px !important;
+    }
+    .screen .top-content .btn-list {
+        right:7%;
+    }
+    .pos .kitchen-screen .order-line .order-table{
+        width: 14% !important;
+        justify-content: center;
+    }
+    .pos .kitchen-screen .order-line .order-state {
+        width: 9% !important;
+        text-transform:capitalize;
+
+    }
+
+    .pos .kitchen-screen .order-line .cancel-order{
+        width: 8% !important;
+        justify-content: flex-start;
+        margin-left: 2%;
+    }
+
+    .pos .kitchen-screen .order-line .order-note {
+        width: 3% !important;
+        justify-content: center;
+    }
+
+
+}

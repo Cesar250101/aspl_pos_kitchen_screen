@@ -1,0 +1,125 @@
+<odoo>
+    <data>
+
+        <!-- Pantallas -->
+        <record id="aspl_pos_kitchen_screen.pantallas_form_view" model="ir.ui.view">
+            <field name="name">Pantallas</field>
+            <field name="model">aspl_pos_kitchen_screen.pantallas</field>
+            <field name="arch" type="xml">
+                <form string="Pantallas">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="aspl_pos_kitchen_screen.pantallas_categorias_form_view" model="ir.ui.view">
+            <field name="name">Pantallas Categorias</field>
+            <field name="model">aspl_pos_kitchen_screen.pantallas_categorias</field>
+            <field name="arch" type="xml">
+                <form string="Pantallas Categoriras">
+                    <sheet>
+                        <group>
+                            <field name="pantalla_id" />
+                            <field name="pos_category_ids" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>    
+
+        <record id="aspl_pos_kitchen_screen.pantallas_categorias_tree_view" model="ir.ui.view">
+            <field name="name">pantallas.categorias.tree.view</field>
+            <field name="model">aspl_pos_kitchen_screen.pantallas_categorias</field>
+            <field name="arch" type="xml">
+                <tree string="Pantallas Categoriras">
+                    <field name="pantalla_id" />
+                    <field name="pos_category_ids" />
+                </tree>
+            </field>
+        </record>  
+
+        <!-- model.name action window -->
+        <record id="aspl_pos_kitchen_screen.pantallas_categoria_action" model="ir.actions.act_window">
+            <field name="name">Pantallas Categorías</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">aspl_pos_kitchen_screen.pantallas_categorias</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                </p>
+            </field>
+        </record>        
+
+        <!-- model.name action window -->
+        <record id="aspl_pos_kitchen_screen.pantallas_action" model="ir.actions.act_window">
+            <field name="name">Pantallas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">aspl_pos_kitchen_screen.pantallas</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_type">form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    <!-- Add Text Here -->
+                </p><p>
+                    <!-- More details about what a user can do with this object will be OK --> 
+                </p>
+            </field>
+        </record>
+
+        <!-- This Menu Item must have a parent and an action -->
+        <menuitem parent="point_of_sale.menu_point_config_product"
+              action="pantallas_action"
+              id="aspl_pos_kitchen_screen.pantallas_menu_act"
+              sequence="30"
+              groups="point_of_sale.group_pos_manager"/>
+        <menuitem parent="point_of_sale.menu_point_config_product"
+              action="pantallas_categoria_action"
+              id="aspl_pos_kitchen_screen.pantallas_categorias_menu_act"
+              sequence="31"
+              groups="point_of_sale.group_pos_manager"/>
+
+
+        <record id="order_inherited_form_view" model="ir.ui.view">
+            <field name="name">pos.order.inherited.view</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <field name="price_unit" position="before">
+                    <field name="order_line_note"/>
+                    <field name="state"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="aspl_pos_config_view_form" model="ir.ui.view">
+	        <field name="name">pos.config.form.view</field>
+	        <field name="model">pos.config</field>
+	        <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+	        <field name="arch" type="xml">
+	            <xpath expr="//sheet//div[@id='category_reference']" position="after">
+	                <div id="send_to_kitche" class="col-12 col-lg-6 o_setting_box">
+                        <div class="o_setting_left_pane">
+                            <field name="send_to_kitchen"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="send_to_kitchen" string="Send To Kitchen"/>
+                            <div class="text-muted">
+                                Order send to kitchen screen
+                            </div>
+                        </div>
+                    </div>
+	            </xpath>
+	        </field>
+        </record>
+
+    </data>
+</odoo>
