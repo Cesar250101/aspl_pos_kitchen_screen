@@ -18,7 +18,7 @@
                            attrs="{'invisible': ['|',('kitchen_screen_user', '=', 'cook')]}" 
                            widget="many2many_tags"
                            domain="[('kitchen_screen_user','=','cook')]"/>
-                    <field name = "user_code"/>                           
+                    <!--<field name = "user_code"/>-->
                 </field>
             </field>
         </record>
