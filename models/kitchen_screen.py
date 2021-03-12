@@ -364,6 +364,7 @@ class PosOrderLines(models.Model):
 
     # state = fields.Selection(selection=[("waiting", "Waiting"), ("preparing", "Preparing"), ("delivering", "Waiting/deliver"),("done","Done"),("cancel","Cancel")],default="waiting")
     state = fields.Selection(selection=[("waiting", "Waiting"), ("done","Done"),("cancel","Cancel")],default="waiting")
+    state_method = fields.Selection(selection=[("waiting", "Waiting"), ("done","Done"),("cancel","Cancel")],default="waiting")
     order_line_note = fields.Text("Order Line Notes")
     pos_cid = fields.Char("pos cid")
 
